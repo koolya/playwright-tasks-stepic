@@ -12,8 +12,7 @@ test.describe('Базовые hover-эффекты', () => {
   // 4. Проверить что событие ухода также залогировано
   test('Hover события логируются', async ({ page }) => {
     const hoverBox = page.getByText('Наведи на меня');
-
-    // твой код
+    await hoverBox.hover();
     await expect(page.locator('#hover-log')).toContainText('Наведение на простой блок');
 
     await page.mouse.move(0, 0);
@@ -40,7 +39,7 @@ test.describe('Всплывающие подсказки', () => {
     await expect(tooltip).toBeHidden();
 
     // Наводим курсор
-    // твой код
+    await tooltipTrigger.hover();
 
     // Проверяем появление подсказки
     await expect(tooltip).toBeVisible();

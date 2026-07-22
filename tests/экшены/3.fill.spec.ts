@@ -5,31 +5,19 @@ test.describe('Заполнение базовых полей формы', () =>
     await page.goto('https://osstep.github.io/action_fill');
   });
 
-  // Тест 1: Заполнение текстового поля
-  // 1. Найти поле "Имя пользователя" по label
-  // 2. Заполнить поле значением "Иван Иванов"
-  // 3. Проверить что значение установлено правильно
   test('Заполнение текстового поля', async ({ page }) => {
     const usernameField = page.getByLabel('Имя пользователя');
-    // твой код
+    await usernameField.fill('Иван Иванов');
     await expect(usernameField).toHaveValue('Иван Иванов');
   });
 
-  // Тест 2: Заполнение email с валидацией
-  // 1. Найти поле email по placeholder
-  // 2. Заполнить некорректным email (без @)
-  // 3. Проверить появление сообщения об ошибке
-  // 4. Заполнить корректным email
-  // 5. Проверить исчезновение ошибки
   test('Заполнение email с валидацией', async ({ page }) => {
     const emailField = page.getByPlaceholder('example@mail.com');
     const errorFeedback = page.getByText('Введите корректный email');
-
-    // твой код
+    await emailField.fill('test.test.ru');
     await emailField.blur(); // Триггерим валидацию
     await expect(errorFeedback).toBeVisible();
-
-    // твой код
+    await emailField.fill('test@test.ru');
     await emailField.blur(); // Триггерим валидацию
     await expect(errorFeedback).toBeHidden();
   });
@@ -40,15 +28,10 @@ test.describe('Заполнение специальных типов полей
     await page.goto('https://osstep.github.io/action_fill');
   });
 
-  // Тест 1: Заполнение textarea
-  // 1. Найти textarea по label
-  // 2. Заполнить многострочным текстом
-  // 3. Проверить что текст сохранен полностью
   test('Заполнение многострочного текста', async ({ page }) => {
     const bioField = page.getByLabel('Краткая биография');
     const longText = 'Меня зовут Иван.\nЯ работаю тестировщиком.\nЛюблю автоматизацию.';
-
-    // твой код
+    await bioField.fill(longText);
     await expect(bioField).toHaveValue(longText);
   });
 
